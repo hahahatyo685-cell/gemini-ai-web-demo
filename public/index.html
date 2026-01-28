@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gemini AI Web Demo</title>
+</head>
+<body>
+  <h1>Gemini AI Web Demo</h1>
+
+  <textarea id="prompt" rows="5" cols="50" placeholder="Tulis prompt..."></textarea>
+  <br><br>
+  <button onclick="kirim()">Kirim</button>
+
+  <h3>Jawaban AI:</h3>
+  <pre id="result"></pre>
+
+  <script>
+    async function kirim() {
+      const prompt = document.getElementById("prompt").value;
+
+      const response = await fetch("/generate-text", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await response.json();
+      document.getElementById("result").textContent = data.result;
+    }
+  </script>
+</body>
+</html>
